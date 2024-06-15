@@ -1,5 +1,7 @@
 #include "objPos.h" 
 
+#include "objPos.h" 
+
 objPos::objPos()
 {
     x = 0;
@@ -7,7 +9,7 @@ objPos::objPos()
     symbol = 0; //NULL
 }
 
-objPos::objPos(objPos &o)
+objPos::objPos(objPos &o) // copy constructor
 {
     x = o.x;
     y = o.y;
