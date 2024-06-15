@@ -19,7 +19,6 @@ using namespace std;
 GameMechs* myGM;
 Player* myPlayer;
 
-objPos myPos;
 
 
 void Initialize(void);
@@ -76,7 +75,11 @@ void GetInput() {
 
 
 void RunLogic(void){
+
+    myPlayer->updatePlayerDir();
+    myPlayer->movePlayer();
    
+   myGM->clearInput();
 }
 
 void DrawScreen(void)

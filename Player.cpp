@@ -72,21 +72,37 @@ void Player::updatePlayerDir()
 
 void Player::movePlayer() {
     // Finite State Machine logic for moving the player
-    switch (myDir) {
-        case UP:
-            playerPos.y = (playerPos.y == 0) ? mainGameMechsRef->getBoardSizeY() - 1 : playerPos.y - 1;
-            break;
-        case DOWN:
-            playerPos.y = (playerPos.y == mainGameMechsRef->getBoardSizeY() - 1) ? 0 : playerPos.y + 1;
-            break;
-        case LEFT:
-            playerPos.x = (playerPos.x == 0) ? mainGameMechsRef->getBoardSizeX() - 1 : playerPos.x - 1;
-            break;
-        case RIGHT:
-            playerPos.x = (playerPos.x == mainGameMechsRef->getBoardSizeX() - 1) ? 0 : playerPos.x + 1;
-            break;
-        case STOP:
-            // Do nothing
-            break;
-    }
+ switch (myDir) {
+    case UP:
+        if (playerPos.y == 0) {
+            playerPos.y = mainGameMechsRef->getBoardSizeY() - 1;
+        } else {
+            playerPos.y--;
+        }
+        break;
+    case DOWN:
+        if (playerPos.y == mainGameMechsRef->getBoardSizeY() - 1) {
+            playerPos.y = 0;
+        } else {
+            playerPos.y++;
+        }
+        break;
+    case LEFT:
+        if (playerPos.x == 0) {
+            playerPos.x = mainGameMechsRef->getBoardSizeX() - 1;
+        } else {
+            playerPos.x--;
+        }
+        break;
+    case RIGHT:
+        if (playerPos.x == mainGameMechsRef->getBoardSizeX() - 1) {
+            playerPos.x = 0;
+        } else {
+            playerPos.x++;
+        }
+        break;
+    case STOP:
+        // Do nothing
+        break;
+}
 }
