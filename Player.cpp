@@ -10,13 +10,19 @@ Player::Player(GameMechs* thisGMRef)
 
     // more actions to be included
 
-
-
+/*
  playerPos.setObjPos(
         (mainGameMechsRef->getBoardSizeX()) / 2,
         (mainGameMechsRef->getBoardSizeY()) / 2,
-        '-'
+        '*'
     );//  starting position middle of board
+
+
+    */
+playerPos.setObjPos(0,0,'*');//  starting position middle of board
+
+//max y is 6!!
+// max x is
 
 
 }
@@ -75,13 +81,16 @@ void Player::movePlayer() {
  switch (myDir) {
     case UP:
         if (playerPos.y == 0) {
-            playerPos.y = mainGameMechsRef->getBoardSizeY() - 1;
+            playerPos.y = mainGameMechsRef->getBoardSizeY() - 3;
         } else {
             playerPos.y--;
         }
+      
+
+
         break;
     case DOWN:
-        if (playerPos.y == mainGameMechsRef->getBoardSizeY() - 1) {
+        if (playerPos.y == mainGameMechsRef->getBoardSizeY() - 3) {
             playerPos.y = 0;
         } else {
             playerPos.y++;
@@ -89,13 +98,13 @@ void Player::movePlayer() {
         break;
     case LEFT:
         if (playerPos.x == 0) {
-            playerPos.x = mainGameMechsRef->getBoardSizeX() - 1;
+            playerPos.x = mainGameMechsRef->getBoardSizeX() - 3;
         } else {
             playerPos.x--;
         }
         break;
     case RIGHT:
-        if (playerPos.x == mainGameMechsRef->getBoardSizeX() - 1) {
+        if (playerPos.x == mainGameMechsRef->getBoardSizeX() - 3) {
             playerPos.x = 0;
         } else {
             playerPos.x++;

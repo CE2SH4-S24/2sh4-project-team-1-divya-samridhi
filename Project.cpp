@@ -9,7 +9,7 @@
 
 
 #define WIDTH 20
-#define HEIGHT 9
+#define HEIGHT 10
 #define BORDER '#'
 
 using namespace std;
@@ -95,10 +95,10 @@ MacUILib_clearScreen();
         MacUILib_printf("%c", BORDER);
     }
     
-    for (i = 0; i < HEIGHT - 2; i++) {
+    for (i = 0; i < HEIGHT-2; i++) {
         MacUILib_printf("\n%c",BORDER);
 
-        for (j = 0; j < WIDTH - 2; j++) {
+        for (j = 0; j < WIDTH-2; j++) {
             if (playerPos.x == j && playerPos.y == i) {
                 MacUILib_printf("%c", playerPos.symbol); // Player's position
             } else {
