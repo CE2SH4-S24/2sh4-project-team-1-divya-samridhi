@@ -112,16 +112,18 @@ void GameMechs::generateFood(objPos blockOff) {
 
     
     // Generate food at a random position within the board size
-    foodPos.x = rand() % (boardSizeX -1) ;
-    foodPos.y = rand() % (boardSizeY -1) ;
+     foodPos.x = rand() % (boardSizeX -2);
+    foodPos.y = rand() % (boardSizeY -2);
+        
     foodPos.symbol = '*';
 
 
  // Check if generated position is already taken
         while ((blockOff.x == foodPos.x  && blockOff.y == foodPos.y)) {
             // Generate new coordinates until a free one is found
-            foodPos.x = rand() % (boardSizeX -2)+1;
-             foodPos.y = rand() % (boardSizeY -2)+1 ;
+            foodPos.x = rand() % (boardSizeX -2);
+            foodPos.y = rand() % (boardSizeY -2);
+              foodPos.symbol = '*';
         
         }
 
