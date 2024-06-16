@@ -3,6 +3,7 @@
 #include "objPos.h"
 #include "GameMechs.h"
 #include "Player.h"
+#include "objPosArrayList.h"
 
 
 
@@ -58,8 +59,8 @@ void Initialize(void){
     //myGM->generateFood(myPlayer);
     
   
-objPos blockOff;
-myPlayer->getPlayerPos(blockOff);  // Assuming getPlayerPos retrieves the player's position
+objPos blockOff(-1,-1,'o');
+//myPlayer->getPlayerPos(blockOff);  // Assuming getPlayerPos retrieves the player's position
 
 objPos foodPos;
 myGM->generateFood(blockOff);
@@ -99,8 +100,15 @@ void DrawScreen(void)
    
 MacUILib_clearScreen();  
 
-    objPos playerPos;
-    myPlayer->getPlayerPos(playerPos);
+bool drawn;
+
+    objPosArrayList* playerBody = myPlayer->getPlayerPos();
+    objPos tempBody;
+
+
+
+
+
     objPos foodPos;
    // myGM->generateFood();
     myGM->getFoodPos(foodPos);
@@ -115,10 +123,27 @@ MacUILib_clearScreen();
 for (i = 0; i < HEIGHT - 2; i++) {
     MacUILib_printf("\n%c", BORDER);
 
+
     for (j = 0; j < WIDTH - 2; j++) {
-        if (playerPos.x == j && playerPos.y == i) {
-            MacUILib_printf("%c", playerPos.symbol); // Player's position
-        } else if (foodPos.x == j && foodPos.y == i) {
+        drawn = false;
+
+
+          for (int k = 0; k<playerBody->getSize(); k++){
+        playerBody->getElement(tempBody, k);
+
+        if(tempBody.x == j && tempBody.y ==i){
+            MacUILib_printf("%c", tempBody.symbol);
+            drawn = true;
+            break;
+        }
+
+    }
+    if(drawn == true){ // if player body was drawn dont draw anything below
+        continue;
+    }
+        
+        
+      if (foodPos.x == j && foodPos.y == i) {
             MacUILib_printf("*"); // Food symbol
         } else {
             MacUILib_printf(" "); // Empty space
@@ -144,7 +169,7 @@ for (i = 0; i < HEIGHT - 2; i++) {
 
     MacUILib_printf("\n\nPress commands: 'w'-up, 's'-down, 'a'-left, 'd'-right.");   
 
-    MacUILib_printf("\nBoardSize: %dx%d, Player Pos: (%d,%d) + %c\n", myGM->getBoardSizeX(), myGM->getBoardSizeY(), playerPos.x, playerPos.y, playerPos.symbol);
+    MacUILib_printf("\nBoardSize: %dx%d, Player Pos: (%d,%d) + %c\n", myGM->getBoardSizeX(), myGM->getBoardSizeY(), tempBody.x, tempBody.y, tempBody.symbol);
     MacUILib_printf("\n\nPress 'enter' to exit.");
 }
 
