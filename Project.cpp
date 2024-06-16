@@ -4,8 +4,7 @@
 #include "GameMechs.h"
 #include "Player.h"
 
-//#define column 20
-//#define row 10
+
 
 
 #define WIDTH 20
@@ -18,6 +17,7 @@ using namespace std;
 
 GameMechs* myGM;
 Player* myPlayer;
+
 
 
 
@@ -53,9 +53,18 @@ void Initialize(void){
     
     myGM = new GameMechs(20,10);
     myPlayer = new Player(myGM);
+  srand(time(NULL));
+
+    //myGM->generateFood(myPlayer);
+    
+  
+objPos blockOff;
+myPlayer->getPlayerPos(blockOff);  // Assuming getPlayerPos retrieves the player's position
+
+objPos foodPos;
+myGM->generateFood(blockOff);
 
 }
-
 
 void GetInput() {
     char input;
@@ -74,7 +83,10 @@ void GetInput() {
 }
 
 
+
 void RunLogic(void){
+
+
 
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
@@ -89,30 +101,46 @@ MacUILib_clearScreen();
 
     objPos playerPos;
     myPlayer->getPlayerPos(playerPos);
+    objPos foodPos;
+   // myGM->generateFood();
+    myGM->getFoodPos(foodPos);
+
+
 
     int i, j;
     for (i = 0; i < WIDTH; i++) {
         MacUILib_printf("%c", BORDER);
     }
     
-    for (i = 0; i < HEIGHT-2; i++) {
-        MacUILib_printf("\n%c",BORDER);
+for (i = 0; i < HEIGHT - 2; i++) {
+    MacUILib_printf("\n%c", BORDER);
 
-        for (j = 0; j < WIDTH-2; j++) {
-            if (playerPos.x == j && playerPos.y == i) {
-                MacUILib_printf("%c", playerPos.symbol); // Player's position
-            } else {
-                MacUILib_printf(" "); // Empty space
-            }
+    for (j = 0; j < WIDTH - 2; j++) {
+        if (playerPos.x == j && playerPos.y == i) {
+            MacUILib_printf("%c", playerPos.symbol); // Player's position
+        } else if (foodPos.x == j && foodPos.y == i) {
+            MacUILib_printf("*"); // Food symbol
+        } else {
+            MacUILib_printf(" "); // Empty space
         }
-
-        MacUILib_printf("%c", BORDER);  
     }
+
+    MacUILib_printf("%c", BORDER);
+}
+         
+
+      
     MacUILib_printf("\n");
     
     for (i = 0; i < WIDTH; i++) {
         MacUILib_printf("%c", BORDER);
     }
+
+   
+
+      MacUILib_printf("\nfood pos: %d, %d", foodPos.x,foodPos.y); // Player's position
+   //("*"); // Display food symbol at its position
+
 
     MacUILib_printf("\n\nPress commands: 'w'-up, 's'-down, 'a'-left, 'd'-right.");   
 
@@ -137,9 +165,5 @@ void CleanUp(void)
     myGM = NULL;
     delete myPlayer; 
     myPlayer = NULL;
+
 }
-
-
-
-
-

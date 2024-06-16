@@ -10,6 +10,7 @@ EXEC = Project
 
 ${EXEC} : $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) ${POSTLINKER}
+OBJ = GameMechs.o objPos.o objPosArrayList.o Food.o MacUILib.o Player.o Project.o
 
 clean :
 	rm -r ${OBJ} ${EXEC} ${EXEC}.exe

@@ -1,6 +1,5 @@
 #include "objPos.h" 
 
-#include "objPos.h" 
 
 objPos::objPos()
 {

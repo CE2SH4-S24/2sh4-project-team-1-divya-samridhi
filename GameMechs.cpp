@@ -4,6 +4,9 @@
 //where should we see the RNG
 //#include "Project.cpp"
 
+#include <cstdlib>
+#include <ctime>
+
 
 GameMechs::GameMechs()
 {
@@ -12,34 +15,29 @@ GameMechs::GameMechs()
     boardSizeX = 20; // default board size
     boardSizeY = 10;
 
-    //loseFlag = false;
     score = 0;
 
-   // foodPos.setPos(-1,-1,'*'); // initialize the game board
-
+ 
+  srand(time(NULL));
 
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
 {
+
     input = 0;
     exitFlag = false;
     boardSizeX = boardX;
     boardSizeY = boardY;
-    
-    //loseFlag = false;
+
     score = 0;
-
- //   foodPos.setPos(-1,-1,'*');
-
+ //srand(time(NULL));
 }
 
 // do you need a destructor?
 GameMechs::~GameMechs(){
-// nothing in iteration 1 to deallocate
+
 }
-
-
 
 
 // Exit Flag
@@ -108,14 +106,33 @@ return boardSizeY;
 
 
 
- void GameMechs::generateFood(objPos){
-    //generate x and y coordinate
-    //not on boarder
-    //no clash with player (block off)
-    //check against the player position
-    //in the object position class we have isequal method, use it!!
-    //srand in here?
- }
+
+void GameMechs::generateFood(objPos blockOff) {
+    
+
+    
+    // Generate food at a random position within the board size
+    foodPos.x = rand() % (boardSizeX -1) ;
+    foodPos.y = rand() % (boardSizeY -1) ;
+    foodPos.symbol = '*';
+
+
+ // Check if generated position is already taken
+        while ((blockOff.x == foodPos.x  && blockOff.y == foodPos.y)) {
+            // Generate new coordinates until a free one is found
+            foodPos.x = rand() % (boardSizeX -1) ;
+             foodPos.y = rand() % (boardSizeY -1) ;
+        
+        }
+
+
+}
+
+void GameMechs::getFoodPos(objPos &returnPos) {
+    returnPos = foodPos;
+}
+
+
 
 
 // Provide definitions of more member functions as required

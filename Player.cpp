@@ -14,15 +14,13 @@ Player::Player(GameMechs* thisGMRef)
  playerPos.setObjPos(
         (mainGameMechsRef->getBoardSizeX()) / 2,
         (mainGameMechsRef->getBoardSizeY()) / 2,
-        '*'
+        '*'  "Food::getFoodPos(objPos&)", referenced from:
     );//  starting position middle of board
 
 
     */
 playerPos.setObjPos(0,0,'*');//  starting position middle of board
 
-//max y is 6!!
-// max x is
 
 
 }
