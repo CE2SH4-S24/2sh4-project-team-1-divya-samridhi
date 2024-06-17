@@ -96,8 +96,31 @@ void RunLogic(void){
 
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
+
+
+        objPos playerPos;
+        myPlayer->getPlayerPos(playerPos);
+
+    objPos foodPos;
+    myFood->getFoodPos(foodPos);
+
+    if (myGM->Collision(playerPos, foodPos)) {
+        // Collision detected, increment score and generate new food
+        myGM->incrementScore();
+        myFood->generateFood(playerPos); // Generate food at a new position
+    }
+    
+
    
    myGM->clearInput();
+
+
+
+
+
+
+
+
 }
 
 void DrawScreen(void)
@@ -169,6 +192,7 @@ for (i = 0; i < HEIGHT - 2; i++) {
 
 
     MacUILib_printf("\n\nPress commands: 'w'-up, 's'-down, 'a'-left, 'd'-right.");   
+      MacUILib_printf("\n score:%d", myGM->getScore() );   
 
     MacUILib_printf("\nBoardSize: %dx%d, Player Pos: (%d,%d) + %c\n", myGM->getBoardSizeX(), myGM->getBoardSizeY(), tempBody.x, tempBody.y, tempBody.symbol);
     MacUILib_printf("\n\nPress 'enter' to exit.");

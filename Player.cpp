@@ -133,3 +133,9 @@ playerPosList->insertHead(currHead);
 playerPosList->removeTail();
 
 }
+
+void Player::getPlayerPos(objPos &returnPos) {
+    if (playerPosList->getSize() > 0) {
+        playerPosList->getElement(returnPos, 0); // Assuming 0 is the head of the player
+    }
+}
