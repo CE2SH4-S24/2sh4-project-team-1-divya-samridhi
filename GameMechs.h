@@ -1,23 +1,17 @@
 #ifndef GAMEMECHS_H
 #define GAMEMECHS_H
 
-#include <cstdlib> //c++ standard librrary
-#include <time.h> //c++ <time>, in c++ 
+
 
 #include "objPos.h"
 #include "objPosArrayList.h"
+#include "Food.h"
 
-using namespace std;
+//using namespace std;
 
 
 class GameMechs
 {   
-    // GameMechs is the Game Mechanism class
-    // Construct the remaining declaration from the project manual.
-
-    // Only some sample members are included here
-
-    // You will include more data members and member functions to complete your design.
 
     private:
 
@@ -29,7 +23,7 @@ class GameMechs
         int boardSizeX;
         int boardSizeY;
 
-        objPos foodPos;
+            Food food;
 
 
     public:

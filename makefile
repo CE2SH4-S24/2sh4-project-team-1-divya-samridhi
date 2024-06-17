@@ -14,4 +14,3 @@ OBJ = GameMechs.o objPos.o objPosArrayList.o Food.o MacUILib.o Player.o Project.
 
 clean :
 	rm -r ${OBJ} ${EXEC} ${EXEC}.exe
-

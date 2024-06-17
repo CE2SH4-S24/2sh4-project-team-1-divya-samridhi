@@ -4,8 +4,8 @@
 //where should we see the RNG
 //#include "Project.cpp"
 
-#include <cstdlib>
 #include <ctime>
+#include "GameMechs.h"
 
 
 GameMechs::GameMechs()
@@ -17,7 +17,7 @@ GameMechs::GameMechs()
 
     score = 0;
 
- 
+
   srand(time(NULL));
 
 }
@@ -106,36 +106,13 @@ return boardSizeY;
 
 
 
-
 void GameMechs::generateFood(objPos blockOff) {
-    
-
-    
-    // Generate food at a random position within the board size
-     foodPos.x = rand() % (boardSizeX -2);
-    foodPos.y = rand() % (boardSizeY -2);
-        
-    foodPos.symbol = '*';
-
-
- // Check if generated position is already taken
-        while ((blockOff.x == foodPos.x  && blockOff.y == foodPos.y)) {
-            // Generate new coordinates until a free one is found
-            foodPos.x = rand() % (boardSizeX -2);
-            foodPos.y = rand() % (boardSizeY -2);
-              foodPos.symbol = '*';
-        
-        }
-
-
+    food.generateFood(blockOff);
 }
 
 void GameMechs::getFoodPos(objPos &returnPos) {
-    returnPos = foodPos;
+    food.getFoodPos(returnPos);
 }
-
-
-
 
 // Provide definitions of more member functions as required
 // See Project Manual

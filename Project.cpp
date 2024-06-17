@@ -4,6 +4,8 @@
 #include "GameMechs.h"
 #include "Player.h"
 #include "objPosArrayList.h"
+#include "Food.h"
+
 
 
 
@@ -18,6 +20,7 @@ using namespace std;
 
 GameMechs* myGM;
 Player* myPlayer;
+Food* myFood;
 
 
 
@@ -54,15 +57,17 @@ void Initialize(void){
     
     myGM = new GameMechs(20,10);
     myPlayer = new Player(myGM);
+    myFood = new Food();
   srand(time(NULL));
 
-    //myGM->generateFood(myPlayer);
     
   
 objPos blockOff(-1,-1,'o');
-//myPlayer->getPlayerPos(blockOff);  // Assuming getPlayerPos retrieves the player's position
 
 objPos foodPos;
+
+myFood->generateFood(blockOff ); 
+
 myGM->generateFood(blockOff);
 
 }
@@ -104,14 +109,10 @@ bool drawn;
 
     objPosArrayList* playerBody = myPlayer->getPlayerPos();
     objPos tempBody;
-
-
-
-
-
     objPos foodPos;
-   // myGM->generateFood();
-    myGM->getFoodPos(foodPos);
+
+     myFood->getFoodPos(foodPos);
+
 
 
 
@@ -190,5 +191,8 @@ void CleanUp(void)
     myGM = NULL;
     delete myPlayer; 
     myPlayer = NULL;
+    delete myFood; 
+    myFood = NULL;
+
 
 }
