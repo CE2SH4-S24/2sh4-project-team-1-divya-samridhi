@@ -145,7 +145,7 @@ for (i = 0; i < HEIGHT - 2; i++) {
         
         
       if (foodPos.x == j && foodPos.y == i) {
-            MacUILib_printf("*"); // Food symbol
+            MacUILib_printf("o"); // Food symbol
         } else {
             MacUILib_printf(" "); // Empty space
         }
