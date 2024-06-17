@@ -27,11 +27,6 @@ playerPosList = new objPosArrayList();
 playerPosList->insertHead(tempPos);
 
 
-// for debug
-playerPosList->insertHead(tempPos);
-playerPosList->insertHead(tempPos);
-playerPosList->insertHead(tempPos);
-playerPosList->insertHead(tempPos);
 
 }
 
@@ -138,4 +133,27 @@ void Player::getPlayerPos(objPos &returnPos) {
     if (playerPosList->getSize() > 0) {
         playerPosList->getElement(returnPos, 0); // Assuming 0 is the head of the player
     }
+}
+
+
+void Player::addTail()
+{
+    objPos tail;
+    playerPosList->getTailElement(tail);
+    playerPosList->insertTail(tail); 
+}
+
+ bool Player:: SelfCollision(){
+
+    objPos head;
+    playerPosList->getHeadElement(head);
+
+    for (int i = 1; i < playerPosList->getSize(); i++) {
+        objPos body;
+        playerPosList->getElement(body, i);
+        if (head.x == body.x && head.y == body.y) {
+            return true;
+        }
+    }
+    return false; 
 }

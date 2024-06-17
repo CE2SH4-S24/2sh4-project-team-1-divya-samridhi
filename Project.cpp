@@ -76,7 +76,7 @@ void GetInput() {
     char input;
 
 
-   // myGM->clearInput();
+
 
     if (MacUILib_hasChar()){ //  checking if there was user input
        input =  MacUILib_getChar(); // store character input into variable
@@ -91,9 +91,6 @@ void GetInput() {
 
 
 void RunLogic(void){
-
-
-
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
 
@@ -104,20 +101,22 @@ void RunLogic(void){
     objPos foodPos;
     myFood->getFoodPos(foodPos);
 
-    if (myGM->Collision(playerPos, foodPos)) {
-        // Collision detected, increment score and generate new food
-        myGM->incrementScore();
-        myFood->generateFood(playerPos); // Generate food at a new position
+   
+
+    if (myPlayer->SelfCollision() == true) {
+        myGM->setExitTrue();
+        return; 
     }
     
+     if (myGM->Collision(playerPos, foodPos)) {
+
+        myGM->incrementScore();
+        myFood->generateFood(playerPos); 
+        myPlayer->addTail();
+    }
 
    
    myGM->clearInput();
-
-
-
-
-
 
 
 

@@ -24,6 +24,8 @@ class Player
         void getPlayerPos(objPos &returnPos); // Upgrade this in iteration 3.
         void updatePlayerDir();
         void movePlayer();
+        void addTail();
+        bool SelfCollision();
         
     private:
         objPosArrayList *playerPosList;   // Upgrade this in iteration 3.       
@@ -33,6 +35,8 @@ class Player
         GameMechs* mainGameMechsRef;
 
         void initializePlayer();
+        
+        
 };
 
 #endif
