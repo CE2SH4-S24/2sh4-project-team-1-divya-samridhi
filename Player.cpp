@@ -136,14 +136,15 @@ void Player::getPlayerPos(objPos &returnPos) {
 }
 
 
-void Player::addTail()
+void Player::increasePlayerLength()
+
 {
     objPos tail;
     playerPosList->getTailElement(tail);
     playerPosList->insertTail(tail); 
 }
 
- bool Player:: SelfCollision(){
+ bool Player:: checkSelfCollision(){
 
     objPos head;
     playerPosList->getHeadElement(head);
@@ -157,3 +158,8 @@ void Player::addTail()
     }
     return false; 
 }
+
+
+    
+
+        

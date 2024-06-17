@@ -24,8 +24,9 @@ class Player
         void getPlayerPos(objPos &returnPos); // Upgrade this in iteration 3.
         void updatePlayerDir();
         void movePlayer();
-        void addTail();
-        bool SelfCollision();
+        void increasePlayerLength();
+        bool checkSelfCollision();
+        bool checkFoodConsumption();
         
     private:
         objPosArrayList *playerPosList;   // Upgrade this in iteration 3.       

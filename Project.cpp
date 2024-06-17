@@ -103,16 +103,17 @@ void RunLogic(void){
 
    
 
-    if (myPlayer->SelfCollision() == true) {
+    if (myPlayer->checkSelfCollision() == true) {
         myGM->setExitTrue();
         return; 
     }
     
-     if (myGM->Collision(playerPos, foodPos)) {
 
-        myGM->incrementScore();
+if (myGM->Collision(playerPos, foodPos)) {
+
+          myGM->incrementScore();
         myFood->generateFood(playerPos); 
-        myPlayer->addTail();
+        myPlayer->increasePlayerLength();
     }
 
    
@@ -134,7 +135,6 @@ bool drawn;
     objPos foodPos;
 
      myFood->getFoodPos(foodPos);
-
 
 
 
