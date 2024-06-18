@@ -4,15 +4,15 @@
 #include "objPos.h"
 
 class Food {
-private:
-    objPos foodPos;
+    private:
+        objPos foodPos;
 
-public:
-    Food(); // Constructor
-    ~Food(); // Destructor
+    public:
+        Food();
+        ~Food();
 
-    void generateFood(objPos blockOff);
-    void getFoodPos(objPos &returnPos);
+        void generateFood(objPos blockOff);
+        void getFoodPos(objPos &returnPos);
 };
 
 #endif

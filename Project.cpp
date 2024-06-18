@@ -7,9 +7,6 @@
 #include "Food.h"
 
 
-
-
-
 #define WIDTH 20
 #define HEIGHT 10
 #define BORDER '#'
@@ -22,9 +19,6 @@ GameMechs* myGM;
 Player* myPlayer;
 Food* myFood;
 
-
-
-
 void Initialize(void);
 void GetInput(void);
 void RunLogic(void);
@@ -32,13 +26,9 @@ void DrawScreen(void);
 void LoopDelay(void);
 void CleanUp(void);
 
-
-
 int main(void){
-
     Initialize();
-
-    while(myGM->getExitFlagStatus() == false)  {
+    while(myGM->getExitFlagStatus() == false){
         GetInput();
         RunLogic();
         DrawScreen();
@@ -47,7 +37,6 @@ int main(void){
 
     CleanUp();
     return 0;
-
 }
 
 
@@ -55,39 +44,31 @@ void Initialize(void){
     MacUILib_init();
     MacUILib_clearScreen();
     
+    //create objects on heap
     myGM = new GameMechs(20,10);
-    myPlayer = new Player(myGM);
     myFood = new Food();
-  srand(time(NULL));
+    myPlayer = new Player(myGM, myFood);
+ 
+    objPos blockOff(-1,-1,'o');
+    objPos foodPos;
 
-    
-  
-objPos blockOff(-1,-1,'o');
-
-objPos foodPos;
-
-myFood->generateFood(blockOff ); 
-
-myGM->generateFood(blockOff);
-
+// intializae random food at start
+    myFood->generateFood(blockOff); 
+    myGM->generateFood(blockOff); 
 }
 
 void GetInput() {
     char input;
-
-
-
 
     if (MacUILib_hasChar()){ //  checking if there was user input
        input =  MacUILib_getChar(); // store character input into variable
         myGM->setInput(input);
     }
 
-    if (myGM->getInput() == 10){
+    if (myGM->getInput() == 10){ // check for enter key press as signal to close screen
         myGM->setExitTrue();
     }
 }
-
 
 
 void RunLogic(void){
@@ -95,13 +76,12 @@ void RunLogic(void){
     myPlayer->movePlayer();
 
 
-        objPos playerPos;
-        myPlayer->getPlayerPos(playerPos);
+    objPos playerPos;
+    myPlayer->getPlayerPos(playerPos);
 
     objPos foodPos;
     myFood->getFoodPos(foodPos);
 
-   
 
     if (myPlayer->checkSelfCollision() == true) {
         myGM->setExitTrue();
@@ -109,112 +89,92 @@ void RunLogic(void){
     }
     
 
-
-if (myGM->checkFoodConsumption(playerPos, foodPos)) {
-
-          myGM->incrementScore();
-        myFood->generateFood(playerPos); 
-        myPlayer->increasePlayerLength();
+    if (myPlayer->checkFoodConsumption()) {
+        myGM->incrementScore(); // Increment score
+        objPos blockOff(playerPos.getX(), playerPos.getY(), 'o');//this is for overlap comparison with player
+        myFood->generateFood(blockOff); // Generate new food
+        myPlayer->increasePlayerLength(); // Increase the player's length
     }
-
-   myGM->clearInput();
-
-
-
+    myGM->clearInput();
 }
 
-void DrawScreen(void)
-{
+void DrawScreen(void){
    
-MacUILib_clearScreen();  
-
-bool drawn;
+    MacUILib_clearScreen();  
+    bool drawn;
 
     objPosArrayList* playerBody = myPlayer->getPlayerPos();
     objPos tempBody;
     objPos foodPos;
 
-     myFood->getFoodPos(foodPos);
-
-
+    myFood->getFoodPos(foodPos);
+    MacUILib_printf("\nWelcome to Divya & Samridhi's Final COMPENG 2SH4 Project :)!\n"); 
 
     int i, j;
     for (i = 0; i < WIDTH; i++) {
         MacUILib_printf("%c", BORDER);
     }
     
-for (i = 0; i < HEIGHT - 2; i++) {
-    MacUILib_printf("\n%c", BORDER);
+    for (i = 0; i < HEIGHT - 2; i++) {
+        MacUILib_printf("\n%c", BORDER);
 
 
-    for (j = 0; j < WIDTH - 2; j++) {
-        drawn = false;
+        for (j = 0; j < WIDTH - 2; j++) {
+            drawn = false;
 
+            for (int k = 0; k<playerBody->getSize(); k++){
+                playerBody->getElement(tempBody, k);
 
-          for (int k = 0; k<playerBody->getSize(); k++){
-        playerBody->getElement(tempBody, k);
+                if(tempBody.getX() == j && tempBody.getY() ==i){
+                    MacUILib_printf("%c", tempBody.getSymbol());
+                    drawn = true;
+                    break;
+                }
+            }
+            if(drawn == true){ // if player body was drawn dont draw anything below
+                continue;
+            }
 
-        if(tempBody.getX() == j && tempBody.getY() ==i){
-            MacUILib_printf("%c", tempBody.getSymbol());
-            drawn = true;
-            break;
+            if (foodPos.getX() == j && foodPos.getY() == i) {
+                MacUILib_printf("o");
+            } else {
+                MacUILib_printf(" "); 
+            }
         }
-    }
-    if(drawn == true){ // if player body was drawn dont draw anything below
-        continue;
-    }
-        
-        
-      if (foodPos.getX() == j && foodPos.getY() == i) {
-            MacUILib_printf("o"); // Food symbol
-        } else {
-            MacUILib_printf(" "); // Empty space
-        }
-    }
 
-    MacUILib_printf("%c", BORDER);
-}
-         
-
-      
+        MacUILib_printf("%c", BORDER);
+    }  
     MacUILib_printf("\n");
     
     for (i = 0; i < WIDTH; i++) {
         MacUILib_printf("%c", BORDER);
     }
-
-   
-
-      MacUILib_printf("\nfood pos: %d, %d", foodPos.getX(),foodPos.getY()); // Player's position
-   //("*"); // Display food symbol at its position
-
-
+    
+    //MacUILib_printf("\nfood pos: %d, %d", foodPos.getX(),foodPos.getY()); // Player's position
+    MacUILib_printf("\nScore:%d", myGM->getScore());   
     MacUILib_printf("\n\nPress commands: 'w'-up, 's'-down, 'a'-left, 'd'-right.");   
-      MacUILib_printf("\n score:%d", myGM->getScore() );   
+  
 
-    MacUILib_printf("\nBoardSize: %dx%d, Player Pos: (%d,%d) + %c\n", myGM->getBoardSizeX(), myGM->getBoardSizeY(), tempBody.getX(), tempBody.getY(), tempBody.getSymbol());
-    MacUILib_printf("\n\nPress 'enter' to exit.");
+ //   MacUILib_printf("\nBoardSize: %dx%d, Player Pos: (%d,%d) + %c\n", myGM->getBoardSizeX(), myGM->getBoardSizeY(), tempBody.getX(), tempBody.getY(), tempBody.getSymbol());
+    MacUILib_printf("\nPress 'enter' to exit.");
 }
 
 
-void LoopDelay(void)
-{
+void LoopDelay(void){
     MacUILib_Delay(DELAY_CONST); // 0.1s delay
 }
 
 
-void CleanUp(void)
-{
-    MacUILib_clearScreen();    
-  
-    MacUILib_uninit();
+void CleanUp(void){
 
+    MacUILib_clearScreen();    
+    MacUILib_uninit();
+//delete all heap members
     delete myGM; 
     myGM = NULL;
     delete myPlayer; 
     myPlayer = NULL;
     delete myFood; 
     myFood = NULL;
-
 
 }

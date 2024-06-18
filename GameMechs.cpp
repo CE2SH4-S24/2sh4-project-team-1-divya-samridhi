@@ -1,84 +1,51 @@
 #include "GameMechs.h"
 #include "MacUILib.h"
-
-//where should we see the RNG
-//#include "Project.cpp"
-
-#include <ctime>
 #include "GameMechs.h"
 
-
-GameMechs::GameMechs()
-{
+GameMechs::GameMechs(){
     input = 0;
     exitFlag = false;
     boardSizeX = 20; // default board size
     boardSizeY = 10;
-
     score = 0;
-
-
-  srand(time(NULL));
-
 }
 
-GameMechs::GameMechs(int boardX, int boardY)
-{
-
+GameMechs::GameMechs(int boardX, int boardY){
     input = 0;
     exitFlag = false;
     boardSizeX = boardX;
     boardSizeY = boardY;
-
     score = 0;
- //srand(time(NULL));
 }
 
-// do you need a destructor?
-GameMechs::~GameMechs(){
+GameMechs::~GameMechs(){}
 
-}
-
-
-// Exit Flag
 void GameMechs::setExitTrue(){
     exitFlag = true;
 }
 
-bool GameMechs::getExitFlagStatus()
-{
+bool GameMechs::getExitFlagStatus(){
     return exitFlag;
 }
 
-
-// Lose FLag / score
 void GameMechs::setLoseFLag(){
     loseFLag = true;
 }
-
 
 int GameMechs::getScore(){
     return score;
 }
 
-
 void GameMechs::incrementScore(){
     score++;
 }
 
-
-
-// Input
-
-
-char GameMechs::getInput()
-{
-     if (MacUILib_hasChar()){ //  checking if there was user input
-       input =  MacUILib_getChar(); // store character input into variable
+//  getting user input
+char GameMechs::getInput(){
+    if (MacUILib_hasChar()){ 
+        input =  MacUILib_getChar(); 
     }
-
     return input;
-
 }
 
 
@@ -86,25 +53,17 @@ void GameMechs::setInput(char thisInput){
     input = thisInput;
 }
 
-void GameMechs::clearInput()
-{
- input = '\0';
+void GameMechs::clearInput(){
+    input = '\0';
 }
 
-
-//board size
-int GameMechs::getBoardSizeX()
-{
-
+int GameMechs::getBoardSizeX(){
     return boardSizeX;
 }
 
-int GameMechs::getBoardSizeY()
-{
-return boardSizeY;
+int GameMechs::getBoardSizeY(){
+    return boardSizeY;
 }
-
-
 
 void GameMechs::generateFood(objPos blockOff) {
     food.generateFood(blockOff);
@@ -112,12 +71,4 @@ void GameMechs::generateFood(objPos blockOff) {
 
 void GameMechs::getFoodPos(objPos &returnPos) {
     food.getFoodPos(returnPos);
-}
-
-bool GameMechs::checkFoodConsumption(objPos playerPos, objPos foodPos) {
-    if(playerPos.getX() == foodPos.getX() && playerPos.getY() == foodPos.getY()){
-        return true;
-    } else{
-        return false;
-    }
 }

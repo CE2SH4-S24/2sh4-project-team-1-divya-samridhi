@@ -2,19 +2,14 @@
 #define GAMEMECHS_H
 
 
-
 #include "objPos.h"
 #include "objPosArrayList.h"
 #include "Food.h"
-
-//using namespace std;
-
 
 class GameMechs
 {   
 
     private:
-
         char input;
         bool exitFlag;
         bool loseFLag;
@@ -23,7 +18,7 @@ class GameMechs
         int boardSizeX;
         int boardSizeY;
 
-            Food food;
+        Food food; // create food of type Food
 
 
     public:
@@ -50,11 +45,8 @@ class GameMechs
 
         void incrementScore();
 
-void generateFood(objPos blockOff); // Method to generate food
-void getFoodPos(objPos &returnPos); // Method to get food position
-
-
-bool checkFoodConsumption(objPos playerPos, objPos foodPos);
+        void generateFood(objPos blockOff); 
+        void getFoodPos(objPos &returnPos); 
 
 };
 

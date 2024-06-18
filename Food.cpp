@@ -1,36 +1,28 @@
 #include "Food.h"
-#include <cstdlib>
-#include <ctime>
+#include <cstdlib> //srand() and rand();
+#include <ctime> // time()
 
 #define boardSizeX 20
-#define boardSizeY 10
+#define boardSizeY 10 // initial board size
 
 
-Food::Food() {
-    srand(time(NULL));
+Food::Food(){
+    srand(time(NULL)); // seeding random number generator
 }
 
-Food::~Food() {
-    // Destructor
-}
+Food::~Food() {}
 
+// random food generation
 void Food::generateFood(objPos blockOff) {
-   
-   
+
+    foodPos.setObjPos(rand() % (boardSizeX - 2), rand() % (boardSizeY - 2), 'o'); // random position within board 
+
+    // Check if generated position is already taken
+    while (blockOff.isPosEqual(&foodPos)) { 
+        // Generate new coordinates until a free one is found
+        foodPos.setObjPos(rand() % (boardSizeX - 2), rand() % (boardSizeY - 2), 'o');
     
-    // Generate food at a random position within the board size
-  foodPos.setObjPos(rand() % (boardSizeX - 2), rand() % (boardSizeY - 2), 'o');
-
-
-
- // Check if generated position is already taken
-        while (blockOff.isPosEqual(&foodPos)) {
-            // Generate new coordinates until a free one is found
-            foodPos.setObjPos(rand() % (boardSizeX - 2), rand() % (boardSizeY - 2), 'o');
-    
-        }
-
-
+    }
 }
 
 void Food::getFoodPos(objPos &returnPos) {

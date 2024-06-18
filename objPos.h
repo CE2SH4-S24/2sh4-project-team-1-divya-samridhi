@@ -1,8 +1,7 @@
 #ifndef OBJPOS_H 
 #define OBJPOS_H
 
-class objPos
-{
+class objPos {
     private:
         int x;
         int y;
@@ -20,8 +19,7 @@ class objPos
         bool isPosEqual(const objPos* refPos);
         char getSymbolIfPosEqual(const objPos* refPos);
 
-        // because x and y are private we need getters to get acess
-        int getX() { 
+        int getX(){ 
             return x; 
         }
 
@@ -29,6 +27,4 @@ class objPos
             return y; 
         }
 };
-
-
 #endif
