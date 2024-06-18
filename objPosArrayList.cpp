@@ -11,8 +11,8 @@
 objPosArrayList::objPosArrayList()
 {
         aList = new objPos[ARRAY_MAX_CAP]; // 2500 elements on the heap 
-        listSize = 0; // initial list
-        arrayCapacity = ARRAY_MAX_CAP; // array capacity at max
+        sizeList = 0; // initial list
+        sizeArray = ARRAY_MAX_CAP; // array capacity at max
 }
 
 objPosArrayList::~objPosArrayList()
@@ -22,22 +22,22 @@ objPosArrayList::~objPosArrayList()
 
 int objPosArrayList::getSize()
 {
-return listSize;
+return sizeList;
 }
 
 void objPosArrayList::insertHead(objPos thisPos)
 {
 
-    if (listSize != arrayCapacity){
+    if (sizeList != sizeArray){
 
     
 
-        for (int i = listSize; i >0; i--){
+        for (int i = sizeList; i >0; i--){
             aList[i].setObjPos(aList[i-1]);
         }
 
         aList[0].setObjPos(thisPos); // this shuffles all elements towards the tail
-        listSize++;
+        sizeList++;
 } 
 
 }
@@ -45,9 +45,9 @@ void objPosArrayList::insertHead(objPos thisPos)
 void objPosArrayList::insertTail(objPos thisPos)
 {
 
-    if(listSize < arrayCapacity){
-        aList[listSize] = thisPos;
-        listSize++;
+    if(sizeList < sizeArray){
+        aList[sizeList] = thisPos;
+        sizeList++;
     }
 
 
@@ -55,18 +55,18 @@ void objPosArrayList::insertTail(objPos thisPos)
 
 void objPosArrayList::removeHead()
 {
-    if (listSize > 0) {
-        for (int i = 0; i < listSize - 1; i++) {
+    if (sizeList > 0) {
+        for (int i = 0; i < sizeList - 1; i++) {
             aList[i] = aList[i + 1];
         }
-        listSize--;
+        sizeList--;
 }
 }
 
 void objPosArrayList::removeTail()
 {
-if (listSize > 0) {
-        listSize--;
+if (sizeList > 0) {
+        sizeList--;
 }
 }
 
@@ -77,13 +77,13 @@ returnPos.setObjPos(aList[0]);
 
 void objPosArrayList::getTailElement(objPos &returnPos)
 {
-returnPos.setObjPos(aList[listSize-1]);
+returnPos.setObjPos(aList[sizeList-1]);
 }
 
 void objPosArrayList::getElement(objPos &returnPos, int index)
 {
 
-if (index >= 0 && index < listSize) {
+if (index >= 0 && index < sizeList) {
         returnPos = aList[index];
 }
 

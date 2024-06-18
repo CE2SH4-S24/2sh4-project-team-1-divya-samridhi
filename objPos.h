@@ -3,11 +3,12 @@
 
 class objPos
 {
-    public:
+    private:
         int x;
         int y;
         char symbol;
 
+    public:
         objPos();
         objPos(objPos &o); // copy constructor
         objPos(int xPos, int yPos, char sym);
@@ -16,10 +17,18 @@ class objPos
         void setObjPos(int xPos, int yPos, char sym);  
         void getObjPos(objPos &returnPos);
         char getSymbol();
-
         bool isPosEqual(const objPos* refPos);
-        
         char getSymbolIfPosEqual(const objPos* refPos);
+
+        // because x and y are private we need getters to get acess
+        int getX() { 
+            return x; 
+        }
+
+        int getY(){ 
+            return y; 
+        }
 };
+
 
 #endif

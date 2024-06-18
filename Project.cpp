@@ -109,6 +109,7 @@ void RunLogic(void){
     }
     
 
+
 if (myGM->checkFoodConsumption(playerPos, foodPos)) {
 
           myGM->incrementScore();
@@ -116,7 +117,6 @@ if (myGM->checkFoodConsumption(playerPos, foodPos)) {
         myPlayer->increasePlayerLength();
     }
 
-   
    myGM->clearInput();
 
 
@@ -154,19 +154,18 @@ for (i = 0; i < HEIGHT - 2; i++) {
           for (int k = 0; k<playerBody->getSize(); k++){
         playerBody->getElement(tempBody, k);
 
-        if(tempBody.x == j && tempBody.y ==i){
-            MacUILib_printf("%c", tempBody.symbol);
+        if(tempBody.getX() == j && tempBody.getY() ==i){
+            MacUILib_printf("%c", tempBody.getSymbol());
             drawn = true;
             break;
         }
-
     }
     if(drawn == true){ // if player body was drawn dont draw anything below
         continue;
     }
         
         
-      if (foodPos.x == j && foodPos.y == i) {
+      if (foodPos.getX() == j && foodPos.getY() == i) {
             MacUILib_printf("o"); // Food symbol
         } else {
             MacUILib_printf(" "); // Empty space
@@ -186,14 +185,14 @@ for (i = 0; i < HEIGHT - 2; i++) {
 
    
 
-      MacUILib_printf("\nfood pos: %d, %d", foodPos.x,foodPos.y); // Player's position
+      MacUILib_printf("\nfood pos: %d, %d", foodPos.getX(),foodPos.getY()); // Player's position
    //("*"); // Display food symbol at its position
 
 
     MacUILib_printf("\n\nPress commands: 'w'-up, 's'-down, 'a'-left, 'd'-right.");   
       MacUILib_printf("\n score:%d", myGM->getScore() );   
 
-    MacUILib_printf("\nBoardSize: %dx%d, Player Pos: (%d,%d) + %c\n", myGM->getBoardSizeX(), myGM->getBoardSizeY(), tempBody.x, tempBody.y, tempBody.symbol);
+    MacUILib_printf("\nBoardSize: %dx%d, Player Pos: (%d,%d) + %c\n", myGM->getBoardSizeX(), myGM->getBoardSizeY(), tempBody.getX(), tempBody.getY(), tempBody.getSymbol());
     MacUILib_printf("\n\nPress 'enter' to exit.");
 }
 

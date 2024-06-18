@@ -88,35 +88,34 @@ void Player::movePlayer() {
     // Finite State Machine logic for moving the player
  switch (myDir) {
     case UP:
-        if (currHead.y == 0) {
-            currHead.y = mainGameMechsRef->getBoardSizeY() - 3;
+        if (currHead.getY() == 0) {
+       currHead.setObjPos(currHead.getX(), mainGameMechsRef->getBoardSizeY() - 3, currHead.getSymbol());
         } else {
-            currHead.y--;
+            currHead.setObjPos(currHead.getX(), currHead.getY() - 1, currHead.getSymbol());
         }
       
-
-
         break;
     case DOWN:
-        if (currHead.y == mainGameMechsRef->getBoardSizeY() - 3) {
-            currHead.y = 0;
-        } else {
-            currHead.y++;
-        }
+        if (currHead.getY() == mainGameMechsRef->getBoardSizeY() - 3) {
+                currHead.setObjPos(currHead.getX(), 0, currHead.getSymbol());
+            } else {
+                currHead.setObjPos(currHead.getX(), currHead.getY() + 1, currHead.getSymbol());
+            }
+
         break;
     case LEFT:
-        if (currHead.x == 0) {
-           currHead.x = mainGameMechsRef->getBoardSizeX() - 3;
-        } else {
-           currHead.x--;
-        }
+        if (currHead.getX() == 0) {
+                currHead.setObjPos(mainGameMechsRef->getBoardSizeX() - 3, currHead.getY(), currHead.getSymbol());
+            } else {
+                currHead.setObjPos(currHead.getX() - 1, currHead.getY(), currHead.getSymbol());
+            }
         break;
     case RIGHT:
-        if (currHead.x == mainGameMechsRef->getBoardSizeX() - 3) {
-            currHead.x = 0;
-        } else {
-            currHead.x++;
-        }
+        if (currHead.getX() == mainGameMechsRef->getBoardSizeX() - 3) {
+                currHead.setObjPos(0, currHead.getY(), currHead.getSymbol());
+            } else {
+                currHead.setObjPos(currHead.getX() + 1, currHead.getY(), currHead.getSymbol());
+            }
         break;
     case STOP:
         // Do nothing
@@ -152,14 +151,29 @@ void Player::increasePlayerLength()
     for (int i = 1; i < playerPosList->getSize(); i++) {
         objPos body;
         playerPosList->getElement(body, i);
-        if (head.x == body.x && head.y == body.y) {
+          if (head.getX() == body.getX() && head.getY() == body.getY()) {
             return true;
         }
     }
     return false; 
 }
 
+/*
+bool Player::checkFoodConsumption() {
+    objPos playerPos;
+    objPos foodPos;
 
-    
+    // Get player position
+    getPlayerPos(playerPos);
 
-        
+    // Get food position from GameMechs
+    mainGameMechsRef->getFoodPos(foodPos);
+
+    // Check if player position matches food position
+    if (playerPos.x == foodPos.x && playerPos.y == foodPos.y) {
+        return true;
+    } else {
+        return false;
+    }
+}
+*/
