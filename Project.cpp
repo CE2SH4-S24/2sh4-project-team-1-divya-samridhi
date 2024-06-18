@@ -109,7 +109,7 @@ void RunLogic(void){
     }
     
 
-if (myGM->Collision(playerPos, foodPos)) {
+if (myGM->checkFoodConsumption(playerPos, foodPos)) {
 
           myGM->incrementScore();
         myFood->generateFood(playerPos); 

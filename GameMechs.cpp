@@ -117,7 +117,7 @@ void GameMechs::getFoodPos(objPos &returnPos) {
 // Provide definitions of more member functions as required
 // See Project Manual
 
-bool GameMechs::Collision(objPos playerPos, objPos foodPos) {
+bool GameMechs::checkFoodConsumption(objPos playerPos, objPos foodPos) {
     if(playerPos.x == foodPos.x && playerPos.y == foodPos.y){
         return true;
     } else{

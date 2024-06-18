@@ -54,7 +54,7 @@ void generateFood(objPos blockOff); // Method to generate food
 void getFoodPos(objPos &returnPos); // Method to get food position
 
 
-bool Collision(objPos playerPos, objPos foodPos);
+bool checkFoodConsumption(objPos playerPos, objPos foodPos);
 
 };
 

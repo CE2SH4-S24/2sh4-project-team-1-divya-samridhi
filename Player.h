@@ -26,7 +26,7 @@ class Player
         void movePlayer();
         void increasePlayerLength();
         bool checkSelfCollision();
-        bool checkFoodConsumption();
+      //  bool checkFoodConsumption();
         
     private:
         objPosArrayList *playerPosList;   // Upgrade this in iteration 3.       
