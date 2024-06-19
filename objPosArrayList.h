@@ -19,11 +19,15 @@ class objPosArrayList{
         void insertTail(objPos thisPos);
         void removeHead();
         void removeTail();
+
+        void removeElementAtIndex(int index); // New method declaration
+
         
         int getSize();
         void getHeadElement(objPos &returnPos);
         void getTailElement(objPos &returnPos);
         void getElement(objPos &returnPos, int index);
+        void clear();
 };
 
 #endif

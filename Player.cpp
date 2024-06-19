@@ -1,8 +1,12 @@
 #include "Player.h"
+#include "Food.h"
+#include "GameMechs.h"
+
 #define row 10
 #define colomn 20
 
- 
+extern GameMechs* myGM; // Declare myGM as an external variable
+
 Player::Player(GameMechs* thisGMRef, Food* foodRef){
     mainGameMechsRef = thisGMRef;
     myFood = foodRef; // this is to link the food with player, the same as how gamemechanics was linked with player
@@ -128,12 +132,38 @@ bool Player::checkFoodConsumption() {
     objPos head;
     playerPosList->getHeadElement(head); 
 
-    objPos foodPos;
-    myFood->getFoodPos(foodPos); 
+        
+    //check for collision between Player's head and food
+     for (int i = 0; i < myFood->getNumFoodBucketElements(); ++i) {
+        objPos currentFood;
+        myFood->getFoodBucketElement(currentFood, i);
 
-    // Check for collision between player's head and food
-    if (head.getX() == foodPos.getX() && head.getY() == foodPos.getY()) {
-        return true; // Collision with food 
+        if (head.getX() == currentFood.getX() && head.getY() == currentFood.getY()) {
+            // Check if the current food is special
+            if (myFood->isSpecialFood(i)) {
+                myGM->incrementScore(50); // Example: Score 50 points for special food
+                increasePlayerLength();   // Increase player's length for special food
+            } else {
+                myGM->incrementScore(10); // Example: Score 10 points for normal food
+                increasePlayerLength();   // Increase player's length for normal food
+            }
+
+            // Remove consumed food from the bucket
+            myFood->removeFoodBucketElement(i);
+           
+
+            // Generate new food items
+            objPos blockOff(20, 10, 'o');
+            myFood->generateFood(blockOff);
+
+            return true;
+        }
     }
-    return false; // No collision with food
+    return false; //no collision
 }
+
+    
+
+        
+
+        

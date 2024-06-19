@@ -9,22 +9,25 @@ class objPos {
 
     public:
         objPos();
-        objPos(objPos &o); // copy constructor
+        objPos(const objPos &o); // copy constructor
         objPos(int xPos, int yPos, char sym);
 
-        void setObjPos(objPos o);        
-        void setObjPos(int xPos, int yPos, char sym);  
-        void getObjPos(objPos &returnPos);
-        char getSymbol();
-        bool isPosEqual(const objPos* refPos);
-        char getSymbolIfPosEqual(const objPos* refPos);
+        void setObjPos(const objPos &o);        
+        void setObjPos(int xPos, int yPos, char sym);
 
-        int getX(){ 
+        void getObjPos(objPos &returnPos) const;
+
+        char getSymbol() const;
+        bool isPosEqual(const objPos* refPos) const;
+        char getSymbolIfPosEqual(const objPos* refPos) const;
+
+        int getX() const { 
             return x; 
         }
 
-        int getY(){ 
+        int getY() const{ 
             return y; 
         }
+
 };
 #endif

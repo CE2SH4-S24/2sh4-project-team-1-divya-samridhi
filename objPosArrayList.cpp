@@ -3,7 +3,7 @@
 // Paste your CUTE Tested implementation here.
 // Paste your CUTE Tested implementation here.
 // Paste your CUTE Tested implementation here.
-#include "objPosArrayList.h" 
+
 
 
 objPosArrayList::objPosArrayList(){
@@ -16,9 +16,6 @@ objPosArrayList::~objPosArrayList(){
     delete[] aList; // this is becuase aList is an array
 }
 
-int objPosArrayList::getSize(){
-    return sizeList;
-}
 
 void objPosArrayList::insertHead(objPos thisPos){
 
@@ -54,6 +51,19 @@ void objPosArrayList::removeTail(){
     }
 }
 
+void objPosArrayList::removeElementAtIndex(int index) {
+    if (index >= 0 && index < sizeList) {
+        for (int i = index; i < sizeList - 1; ++i) {
+            aList[i] = aList[i + 1];
+        }
+        sizeList--;
+    }
+}
+
+int objPosArrayList::getSize() {
+    return sizeList;
+}
+
 void objPosArrayList::getHeadElement(objPos &returnPos){
     returnPos.setObjPos(aList[0]);
 }
@@ -66,4 +76,8 @@ void objPosArrayList::getElement(objPos &returnPos, int index){
     if (index >= 0 && index < sizeList) {
         returnPos = aList[index];
     }
+}
+
+void objPosArrayList::clear() {
+    sizeList = 0; // Reset size to 0, effectively clearing the list
 }

@@ -4,6 +4,7 @@
 #include "GameMechs.h"
 #include "objPos.h"
 #include "objPosArrayList.h" 
+#include "Food.h"
 
 class Player{
     public:
@@ -31,5 +32,7 @@ class Player{
         void initializePlayer();
             
 };
+
+    extern GameMechs* myGM; // Declare myGM as an external variable
 
 #endif

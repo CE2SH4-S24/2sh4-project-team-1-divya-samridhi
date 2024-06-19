@@ -36,8 +36,8 @@ int GameMechs::getScore(){
     return score;
 }
 
-void GameMechs::incrementScore(){
-    score++;
+void GameMechs::incrementScore(int incrementAmount){
+    score+= incrementAmount;
 }
 
 //  getting user input
@@ -72,3 +72,4 @@ void GameMechs::generateFood(objPos blockOff) {
 void GameMechs::getFoodPos(objPos &returnPos) {
     food.getFoodPos(returnPos);
 }
+

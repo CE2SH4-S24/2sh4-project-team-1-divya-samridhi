@@ -15,8 +15,8 @@ using namespace std;
 
 #define DELAY_CONST 100000
 
-GameMechs* myGM;
-Player* myPlayer;
+GameMechs* myGM= nullptr;
+Player* myPlayer= nullptr;
 Food* myFood;
 
 void Initialize(void);
@@ -49,8 +49,9 @@ void Initialize(void){
     myFood = new Food();
     myPlayer = new Player(myGM, myFood);
  
-    objPos blockOff(-1,-1,'o');
+    objPos blockOff(20,10,'o');
     objPos foodPos;
+    myFood->generateFood(blockOff); // Generate initial food
 
 // intializae random food at start
     myFood->generateFood(blockOff); 
@@ -75,25 +76,13 @@ void RunLogic(void){
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
 
-
-    objPos playerPos;
-    myPlayer->getPlayerPos(playerPos);
-
-    objPos foodPos;
-    myFood->getFoodPos(foodPos);
-
-
     if (myPlayer->checkSelfCollision() == true) {
         myGM->setExitTrue();
         return; 
     }
     
-
     if (myPlayer->checkFoodConsumption()) {
-        myGM->incrementScore(); // Increment score
-        objPos blockOff(playerPos.getX(), playerPos.getY(), 'o');//this is for overlap comparison with player
-        myFood->generateFood(blockOff); // Generate new food
-        myPlayer->increasePlayerLength(); // Increase the player's length
+        DrawScreen();
     }
     myGM->clearInput();
 }
@@ -108,7 +97,7 @@ void DrawScreen(void){
     objPos foodPos;
 
     myFood->getFoodPos(foodPos);
-    MacUILib_printf("\nWelcome to Divya & Samridhi's Final COMPENG 2SH4 Project :)!\n"); 
+    MacUILib_printf("\nWelcome to Divya & Samridhi's Final COMPENG 2SH4 Project :)\n"); 
 
     int i, j;
     for (i = 0; i < WIDTH; i++) {
@@ -122,6 +111,7 @@ void DrawScreen(void){
         for (j = 0; j < WIDTH - 2; j++) {
             drawn = false;
 
+            //draw player body
             for (int k = 0; k<playerBody->getSize(); k++){
                 playerBody->getElement(tempBody, k);
 
@@ -135,10 +125,18 @@ void DrawScreen(void){
                 continue;
             }
 
-            if (foodPos.getX() == j && foodPos.getY() == i) {
-                MacUILib_printf("o");
-            } else {
-                MacUILib_printf(" "); 
+            // Draw food items
+            for (int k = 0; k < myFood->getNumFoodBucketElements(); k++) {
+                myFood->getFoodBucketElement(foodPos, k);
+
+                if (foodPos.getX() == j && foodPos.getY() == i) {
+                    MacUILib_printf("%c", foodPos.getSymbol());
+                    drawn = true;
+                    break;
+                }
+            }
+            if (!drawn) { // If nothing was drawn at this position
+                MacUILib_printf(" ");
             }
         }
 

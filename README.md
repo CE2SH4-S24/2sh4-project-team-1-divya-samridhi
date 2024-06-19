@@ -19,8 +19,9 @@ Student No.: [400463381]
 
 Group Member 2 Information:
 
-Name: [Insert your full name here in format: Last name, First name]
+Name: [Anand,Samridhi]
 
-MacID: [Insert your macID here]
+MacID: [anands29]
 
-Student No.: [Insert your numerical 9-digit McMaster student number here]
+Student No.: [400478945]
+
