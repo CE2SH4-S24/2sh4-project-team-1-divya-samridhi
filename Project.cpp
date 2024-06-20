@@ -187,8 +187,9 @@ void DrawScreen(void){
   
 
  //   MacUILib_printf("\nBoardSize: %dx%d, Player Pos: (%d,%d) + %c\n", myGM->getBoardSizeX(), myGM->getBoardSizeY(), tempBody.getX(), tempBody.getY(), tempBody.getSymbol());
+    MacUILib_printf("\n$ = 30 points, o = 10 points");
     MacUILib_printf("\nPress Spacebar to exit.");
-       MacUILib_printf("\n $ = 30 points, o = 10 points");
+      
 }
 
 
