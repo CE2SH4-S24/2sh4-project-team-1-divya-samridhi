@@ -26,7 +26,7 @@ void Food::generateFood(objPos blockOff) {
 
 
 
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 5; i++) {
         int xPos, yPos;
         bool posIsBlocked = true;
 
@@ -71,7 +71,7 @@ bool Food::isSpecialFood(int index) {
 
 
 int Food::findFoodIndex(const objPos& foodPos) {
-    for (int i = 0; i < foodBucket->getSize(); ++i) {
+    for (int i = 0; i < foodBucket->getSize(); i++) {
         objPos currentFood;
         foodBucket->getElement(currentFood, i);
         if (currentFood.isPosEqual(&foodPos)) {

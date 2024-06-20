@@ -10,6 +10,7 @@
 #define WIDTH 20
 #define HEIGHT 10
 #define BORDER '#'
+#define FOOD 'o'
 
 using namespace std;
 
@@ -28,11 +29,17 @@ void CleanUp(void);
 
 int main(void){
     Initialize();
-    while(myGM->getExitFlagStatus() == false){
-        GetInput();
-        RunLogic();
-        DrawScreen();
-        LoopDelay();
+    while (true) {
+        if (myGM->getExitFlagStatus() == false) {
+            GetInput();
+            RunLogic();
+            if (myGM->getExitFlagStatus() == false) {
+                DrawScreen();
+            }
+            LoopDelay();
+        } else {
+            break;
+        }
     }
 
     CleanUp();
@@ -40,16 +47,17 @@ int main(void){
 }
 
 
+
 void Initialize(void){
     MacUILib_init();
     MacUILib_clearScreen();
     
     //create objects on heap
-    myGM = new GameMechs(20,10);
+    myGM = new GameMechs(WIDTH,HEIGHT);
     myFood = new Food();
     myPlayer = new Player(myGM, myFood);
  
-    objPos blockOff(20,10,'o');
+    objPos blockOff((WIDTH-1)/2,(HEIGHT-1)/2,FOOD);
     objPos foodPos;
     myFood->generateFood(blockOff); // Generate initial food
 
@@ -66,7 +74,12 @@ void GetInput() {
         myGM->setInput(input);
     }
 
-    if (myGM->getInput() == 10){ // check for enter key press as signal to close screen
+    if (myGM->getInput() == 32) { // check for enter key press as signal to close screen
+        MacUILib_clearScreen();
+        MacUILib_printf("\nGame Over! You exited before winning score.\n");
+        MacUILib_printf("\nScore Achieved:%d", myGM->getScore());
+        MacUILib_getChar(); // Wait for user input to exit
+         MacUILib_Delay(2000000);
         myGM->setExitTrue();
     }
 }
@@ -77,13 +90,32 @@ void RunLogic(void){
     myPlayer->movePlayer();
 
     if (myPlayer->checkSelfCollision() == true) {
+        MacUILib_clearScreen();
+        MacUILib_printf("\nGame Over! Snake collided with itself and died.\n");
+        MacUILib_printf("\nScore Achieved:%d", myGM->getScore());
+        MacUILib_getChar(); // Wait for user input to exit
+        MacUILib_Delay(2000000);
         myGM->setExitTrue();
-        return; 
+        return;
     }
     
+
+
     if (myPlayer->checkFoodConsumption()) {
         DrawScreen();
     }
+
+    if (myGM->getScore() >= 150) {
+        MacUILib_clearScreen();
+        MacUILib_printf("\nCongratulations! You Won the Game!\n");
+        MacUILib_printf("\nScore Achieved:%d", myGM->getScore());
+        MacUILib_getChar(); // Wait for user input to exit
+        MacUILib_Delay(2000000);
+        myGM->setExitTrue(); // End the game
+        return;
+        
+    }
+
     myGM->clearInput();
 }
 
@@ -98,6 +130,7 @@ void DrawScreen(void){
 
     myFood->getFoodPos(foodPos);
     MacUILib_printf("\nWelcome to Divya & Samridhi's Final COMPENG 2SH4 Project :)\n"); 
+    MacUILib_printf("\nThe Winning Score is 150, Good Luck:) \n"); 
 
     int i, j;
     for (i = 0; i < WIDTH; i++) {
@@ -154,7 +187,8 @@ void DrawScreen(void){
   
 
  //   MacUILib_printf("\nBoardSize: %dx%d, Player Pos: (%d,%d) + %c\n", myGM->getBoardSizeX(), myGM->getBoardSizeY(), tempBody.getX(), tempBody.getY(), tempBody.getSymbol());
-    MacUILib_printf("\nPress 'enter' to exit.");
+    MacUILib_printf("\nPress Spacebar to exit.");
+       MacUILib_printf("\n $ = 30 points, o = 10 points");
 }
 
 

@@ -72,4 +72,3 @@ void GameMechs::generateFood(objPos blockOff) {
 void GameMechs::getFoodPos(objPos &returnPos) {
     food.getFoodPos(returnPos);
 }
-

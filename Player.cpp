@@ -4,6 +4,7 @@
 
 #define row 10
 #define colomn 20
+#define FOOD 'o'
 
 extern GameMechs* myGM; // Declare myGM as an external variable
 
@@ -134,17 +135,17 @@ bool Player::checkFoodConsumption() {
 
         
     //check for collision between Player's head and food
-     for (int i = 0; i < myFood->getNumFoodBucketElements(); ++i) {
+     for (int i = 0; i < myFood->getNumFoodBucketElements(); i++) {
         objPos currentFood;
         myFood->getFoodBucketElement(currentFood, i);
 
         if (head.getX() == currentFood.getX() && head.getY() == currentFood.getY()) {
             // Check if the current food is special
             if (myFood->isSpecialFood(i)) {
-                myGM->incrementScore(50); // Example: Score 50 points for special food
+                myGM->incrementScore(30); //  Score 30 points for special food
                 increasePlayerLength();   // Increase player's length for special food
             } else {
-                myGM->incrementScore(10); // Example: Score 10 points for normal food
+                myGM->incrementScore(10); // Score 10 points for normal food
                 increasePlayerLength();   // Increase player's length for normal food
             }
 
@@ -153,7 +154,7 @@ bool Player::checkFoodConsumption() {
            
 
             // Generate new food items
-            objPos blockOff(20, 10, 'o');
+            objPos blockOff(head.getX(), head.getY(), FOOD);
             myFood->generateFood(blockOff);
 
             return true;

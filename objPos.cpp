@@ -14,7 +14,7 @@ objPos::objPos(const objPos &o) {
     symbol = o.symbol;
 }
 
-// Parameterized constructor
+// Special constructor
 objPos::objPos(int xPos, int yPos, char sym) {
     x = xPos;
     y = yPos;

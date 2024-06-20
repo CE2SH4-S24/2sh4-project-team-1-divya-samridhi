@@ -5,7 +5,6 @@
 // Paste your CUTE Tested implementation here.
 
 
-
 objPosArrayList::objPosArrayList(){
     aList = new objPos[ARRAY_MAX_CAP]; // 2500 elements on the heap 
     sizeList = 0; // initial list
@@ -53,7 +52,7 @@ void objPosArrayList::removeTail(){
 
 void objPosArrayList::removeElementAtIndex(int index) {
     if (index >= 0 && index < sizeList) {
-        for (int i = index; i < sizeList - 1; ++i) {
+        for (int i = index; i < sizeList - 1; i++) {
             aList[i] = aList[i + 1];
         }
         sizeList--;
