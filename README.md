@@ -13,15 +13,7 @@ Group Member 1 Information:
 
 Name: [Biju,Divya]
 
-MacID: [bijud]
-
-Student No.: [400463381]
-
 Group Member 2 Information:
 
 Name: [Anand,Samridhi]
-
-MacID: [anands29]
-
-Student No.: [400478945]
 
