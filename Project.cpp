@@ -59,7 +59,7 @@ void Initialize(void){
  
     objPos blockOff((WIDTH-1)/2,(HEIGHT-1)/2,FOOD);
     objPos foodPos;
-    myFood->generateFood(blockOff); // Generate initial food
+   // myFood->generateFood(blockOff); // Generate initial food
 
 // intializae random food at start
     myFood->generateFood(blockOff); 
@@ -181,14 +181,28 @@ void DrawScreen(void){
         MacUILib_printf("%c", BORDER);
     }
     
-    //MacUILib_printf("\nfood pos: %d, %d", foodPos.getX(),foodPos.getY()); // Player's position
+    /*
+      for (int k = 0; k < myFood->getNumFoodBucketElements(); k++) {
+                myFood->getFoodBucketElement(foodPos, k);
+    MacUILib_printf("\nfood pos %d:, (%d, %d)",k, foodPos.getX(),foodPos.getY()); // Player's position
+                }
+*/
+
+
+
+
     MacUILib_printf("\nScore:%d", myGM->getScore());   
     MacUILib_printf("\n\nPress commands: 'w'-up, 's'-down, 'a'-left, 'd'-right.");   
   
 
- //   MacUILib_printf("\nBoardSize: %dx%d, Player Pos: (%d,%d) + %c\n", myGM->getBoardSizeX(), myGM->getBoardSizeY(), tempBody.getX(), tempBody.getY(), tempBody.getSymbol());
+    //MacUILib_printf("\nBoardSize: %dx%d, Player Pos: (%d,%d) + %c\n", myGM->getBoardSizeX(), myGM->getBoardSizeY(), tempBody.getX(), tempBody.getY(), tempBody.getSymbol());
     MacUILib_printf("\n$ = 30 points, o = 10 points");
     MacUILib_printf("\nPress Spacebar to exit.");
+
+
+
+
+    
       
 }
 
